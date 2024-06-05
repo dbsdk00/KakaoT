@@ -1,0 +1,34 @@
+<html>
+<head>
+<style>
+th, tr{white-space: nowrap;}
+</style>
+</head>
+<body>
+<a href="/">메뉴로 이동</a>
+<h1>회원 리스트</h1>
+<table border="1">
+  <th>순번</th>
+  <th>성명</th>
+  <th>역할</th>
+  <th>로그인계정</th>
+  <th>비밀번호</th>
+  <th>availability</th>
+  <th>위도</th>
+  <th>경도</th>
+<% for (var i=0; i<data.length; i++){ %>
+  <tr>
+    <td><%= i+1 %></td>
+    <td><%= data[i].name %></td>
+    <td><%= data[i].role %></td>
+    <td><%= data[i].email %></td>
+    <td><%= data[i].password %></td>
+    <td><%= data[i].availability %></td>
+    <% if (data[i].hasOwnProperty('position')) { %>
+    <td><%= data[i].position.latitude %></td>
+    <td><%= data[i].position.longitude %></td>
+    <% } %>
+    </tr>
+<% } %>
+</body>
+</html>
