@@ -15,5 +15,7 @@ router.get('/login', (req, res) => {
 router.get('/available', (req, res) => {
   res.sendFile(path.resolve('./client/available.html'));
 });
-
+router.get('/unavailable', (req, res) => {
+  res.sendFile(path.resolve('./client/unavailable.html'));
+});
 export default router;

@@ -5,10 +5,11 @@ const Store = [
       role: 'user',
       email: 'yujesuk@gmail.com',
       password: '1234',
+      availablity: 0,
     },
     {
       name: '강호동',
-      role: 'user',
+      role: 'driver',
       email: 'hodong@gmail.com',
       password: '5678',
       availablity: 1,
@@ -34,10 +35,28 @@ const Store = [
     },
     available: async (email, {latitude, longitude}) => {
       const driver = Store.find((s) => s.email === email);
+      console.log(email);
+      console.log(driver);
       driver.availablity = 1;
-      driver.position.latitude = latitude;
-      driver.position.longitude = longitude;
+      driver.position = {
+        latitude,
+        longitude
+      }
       return driver;
+    },
+    unavailable: async(email)=> {
+      const driver = Store.find((s) => s.email === email);
+      driver.availablity = 0;
+      return driver;
+    },
+    getDriver: async({latitude, longitude}) => {
+      // 첫번쨰 조건: 손님을 태울 준비가 되고, 운전자여야함
+      const drivers = Store.filter(
+        (s) => s.availablity == 1 && s.role == "driver"
+      )
+      return drivers;
+      // 두번쨰 조건: 나랑 가장 가까운 운전자를 찾아야함
+      // 요기에알고리즘
     }
   };
   

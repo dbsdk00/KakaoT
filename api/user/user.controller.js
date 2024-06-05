@@ -43,3 +43,10 @@ export function available(req, res) {
     })
     .then(responseWithResult(res));
 }
+export function unavailable(req, res) {
+  return User.unavailable(req.body.email)
+    .then((user) => {
+      return '손님 못받아유';
+    })
+    .then(responseWithResult(res));
+}

@@ -1,0 +1,34 @@
+<a href="/">메뉴로 이동</a>
+<h1>부킹</h1>
+
+<form id="frmLogin">
+  탑승자id: <input type="text" name="email" /> <br />
+  자기위치(위도) : <input type="text" name="latitude" /> <br />
+  자기위치(경도) : <input type="text" name="longitude" />
+</form>
+<button onclick="fBookings()">가까운 택시 잡아 부킹해줘</button> <br />
+<button>(수동)가능상태로 변경</button> <br />
+
+<script>
+  const $ = document.querySelector.bind(document);
+  async function fBookings() {
+    var formData = new FormData($('#frmLogin'));
+    var data = {};
+    formData.forEach(function (value, key) {
+      data[key] = value;
+    });
+
+    alert(JSON.stringify(data));
+
+    var url = '/api/bookings';
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
+    const json = await response.json();
+    alert(JSON.stringify(json));
+  }
+</script>

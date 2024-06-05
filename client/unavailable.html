@@ -1,0 +1,35 @@
+<a href="/">메뉴로 이동</a>
+<h1>unavailable</h1>
+
+<form id="frmLogin">
+  운전자ID: <input type="text" name="email" /> <br />
+  위도 : <input type="text" name="latitude" /> <br />
+  경도 : <input type="text" name="longitude" />
+</form>
+<button onclick="unavailable()">(자동)가능상태로 변경</button> <br />
+<button>(수동)가능상태로 변경</button> <br />
+
+<script>
+  const $ = document.querySelector.bind(document);
+  async function unavailable() {
+    var formData = new FormData($('#frmLogin'));
+    var data = {};
+    formData.forEach(function (value, key) {
+      data[key] = value;
+    });
+
+    alert(JSON.stringify(data));
+
+    var url = '/api/users/unavailable';
+    const response = await fetch(url, {
+      // fetch는 url을 실행(호출)시켜주는 역할
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
+    const json = await response.json();
+    alert(JSON.stringify(json));
+  }
+</script>
